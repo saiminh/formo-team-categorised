@@ -78,7 +78,7 @@ function render_query_teammembers( $block_attributes, $content) {
           $departmentString = $departmentString.' '.$dep->slug;
         }
       } else {
-        $departmentString = 'bio-rd';
+        $departmentString = 'no-department-assigned';
       }
       
       
