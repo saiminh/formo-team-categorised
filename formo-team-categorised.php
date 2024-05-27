@@ -91,6 +91,14 @@ function render_query_teammembers( $block_attributes, $content) {
       $content = preg_replace('/<!--(.|\s)*?-->/', '', $content);
       // from $content, get the text from '<figure' up until '</figure>'
       $contentImage = substr($content, strpos($content, '<figure'), strpos($content, '</figure>') - strpos($content, '<figure') + 9);
+      // if $contentImage contains a sizes="*anything*" attribute, replace it it to 'sizes="(max-width: 782px) 40vw, 22vw"'
+      if (strpos($contentImage, 'sizes=') !== false) {
+        $contentImage = preg_replace('/sizes=".*?"/', 'sizes="(max-width: 782px) 40vw, 22vw"', $contentImage);
+      } else {
+        $contentImage = preg_replace('/<img/', '<img sizes="(max-width: 782px) 40vw, 22vw"', $contentImage);
+      }
+
+
       // from $content, get all <p>
       $contentDescription = substr($content, strpos($content, '<p'), strpos($content, '</p>') - strpos($content, '<p') + 4);
       
