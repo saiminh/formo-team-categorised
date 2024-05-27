@@ -1,0 +1,172 @@
+.formo2022-team-members {
+  --padding: calc(var(--wp--custom--spacing--outer) + 0.5 * var(--wp--custom--spacing--between));
+  --memberWidth : calc( (100vw - 2 * var(--wp--custom--spacing--outer) - 7 * var(--wp--custom--spacing--between)) / 4);
+  --queryHeight: calc( 2 * var(--memberWidth) + 2 * var(--wp--custom--spacing--between));
+  --departmentHeight: 6rem;
+  --totalHeight: calc( var(--queryHeight) + var(--departmentHeight) + 2 * var(--padding) );
+
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: var(--padding);
+  height: var(--totalHeight);
+  background-color: var(--wp--preset--color--formo-blue);
+  color: var(--wp--preset--color--formo-cream);
+}
+@media screen and (max-width: 782px) {
+  .formo2022-team-members {
+    --memberWidth : calc((100vw - 2 * var(--wp--custom--spacing--outer) - 3 * var(--wp--custom--spacing--between)) / 2);
+  }
+}
+.formo2022-team-departments {
+  height: var(--departmentHeight);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  overflow-x: scroll;
+  margin-left: calc(-1 * var(--padding));
+  padding: 0 var(--padding);
+  width: 100vw;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  &:-webkit-scrollbar {
+    display: none;
+  }
+
+  & a {
+    border: 1px solid;
+    border-radius: 1em;
+    font-size: 1.25rem;
+    padding: .33em .75em;
+    color: var(--wp--preset--color--formo-cream);
+    cursor: pointer;
+    white-space: nowrap;
+
+    &[data-filter-active="true"] {
+      background-color: var(--wp--preset--color--formo-cream);
+      color: var(--wp--preset--color--formo-blue);
+    }
+  }
+}
+.formo2022-team-query {
+  width: auto;
+  position: relative;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fill, var(--memberWidth));
+  gap: calc( 2 * var(--wp--custom--spacing--between) );
+  box-sizing: border-box;
+  transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  height: var(--queryHeight);
+  overflow: hidden;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.formo2022-teammember {
+  width: var(--memberWidth);
+  height: var(--memberWidth);
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  animation: fadeIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) .2s both;
+
+  &[data-department-hidden="true"] {
+    display: none;
+    opacity: 0;
+  }
+
+  figure {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: block;
+    margin: 0;
+
+    & img, & video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  & .formo2022-teammember-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    padding: 1.5rem 1rem;
+    box-sizing: border-box;
+    text-align: center;
+    opacity: 0;
+    transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    
+    & .formo2022-teammember-fullname {
+      font-size: calc(1.2 * var(--wp--preset--font-size--large));
+      transform: translateY(10px) scale(0.9);
+      transition: all .4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      margin-bottom: 0;
+    }
+    & .formo2022-teammember-description p {
+      transform: translateY(-10px) scale(0.9);
+      transition: all .4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      margin: 0.5em 0 0 0;
+    }
+  }
+
+  @media screen and (max-width: 782px) {
+    & .formo2022-teammember-content {
+      background-color: transparent;
+      background-image: linear-gradient(rgba(0,0,0,0) 0%, rgba(0, 0, 0, .2) 60%);
+      opacity: 1;
+      transform: translate(0) scale(1);
+
+      & .formo2022-teammember-fullname {
+        font-size: calc(1 * var(--wp--preset--font-size--large));
+        transform: translateY(0) scale(1);
+      }
+      & .formo2022-teammember-description p {
+        transform: translateY(0) scale(1);
+      }
+    }
+  }
+
+  &:hover .formo2022-teammember-content {
+    opacity: 1;
+    
+    & .formo2022-teammember-fullname {
+      transform: translateY(0) scale(1);
+    }
+    & .formo2022-teammember-description p {
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+.formo2022-team-next, .formo2022-team-prev {
+  position: absolute;
+  top: calc(var(--totalHeight) / 2 + 0.5 * var(--departmentHeight));
+  transform: translateY(-50%);
+  left: 0.5rem;
+  background-color: var(--wp--preset--color--formo-blue);
+  border: 1px solid;
+  border-radius: 1rem;
+  padding: 0.25em 1rem;
+  color: var(--wp--preset--color--formo-cream);
+}
+.formo2022-team-next {
+  left: auto;
+  right: 0.5rem;
+}
