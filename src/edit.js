@@ -1,41 +1,34 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
 import { __ } from '@wordpress/i18n';
-
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
 import { useBlockProps } from '@wordpress/block-editor';
-
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
 import './editor.scss';
+import previewImage from './assets/previewimage.jpg';
 
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- *
- * @return {Element} Element to render.
- */
 export default function Edit() {
 	return (
-		<p { ...useBlockProps() }>
-			{ __(
-				'Formo Team Categorised – hello from the editor!',
-				'formo-team-categorised'
-			) }
-		</p>
+		<div { ...useBlockProps() }>
+      <img className='formo-team-categorised-previewImage' src={ previewImage } alt="" />
+      <div className='formo-team-categorised-previewText'>
+        <div className='formo-team-categorised-previewText-inner'>
+          <h3 className='formo-team-categorised-previewText-header'>
+          { __(
+              'This is the formo team categorised block',
+              'formo-team-categorised'
+            ) }
+          </h3>
+          <p>
+            { __(
+              'It pulls in team members from the formo teammember post type and displays them in a categorised format. You can\'t edit this block in the editor.',
+              'formo-team-categorised'
+            ) }
+          </p>
+          <p>
+            { __(
+              'You can change the images, names, info and categories of each team member in the team members section of the admin panel.',
+              'formo-team-categorised'
+            ) }
+          </p>
+        </div>
+      </div>
+		</div>
 	);
 }

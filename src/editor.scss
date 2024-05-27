@@ -5,5 +5,34 @@
  */
 
 .wp-block-create-block-formo-team-categorised {
-	border: 1px dotted #f00;
+	background-color: var(--wp--preset--color--formo-blue);
+  padding: 0;
+  margin: 0;
+  
+  & h3.formo-team-categorised-previewText-header {
+    font-size: var(--wp--preset--font-size--x-large);
+  }
+}
+.formo-team-categorised-previewText {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.4);
+  color: var(--wp--preset--color--formo-cream);
+
+}
+.formo-team-categorised-previewText-inner {
+  max-width: 30em;
+  background-color: rgba(0,0,0,0.8);
+  padding: 1em;
+}
+.formo-team-categorised-previewImage {
+  width: 100%;
+  height: auto;
+  display: block;
 }
