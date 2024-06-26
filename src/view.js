@@ -21,7 +21,10 @@ function adjustQueryWidth(module, activeChildren) {
   const isMobile = window.innerWidth < 782;
   const query = module.querySelector('.formo2022-team-query');
   const oneWidth = activeChildren[0].getBoundingClientRect().width;
-  const gapWidth = Number(window.getComputedStyle(query).getPropertyValue("gap").replace('px', '')) || 0;
+  const gapValue = window.getComputedStyle(query).getPropertyValue("gap");
+  // get the substring of gapValue before the first occurrence of 'px'
+  const gapWidth = gapValue ? Number(gapValue.substring(0, gapValue.indexOf('px'))) : 13;
+  // const gapWidth = Number(window.getComputedStyle(query).getPropertyValue("gap").replace('px', '')) || 0;
   let childrenPerRow = Math.ceil(activeChildren.length / 2);
   if (childrenPerRow === 1) childrenPerRow = 2;
   let screens = isMobile ? (activeChildren.length / 4) : (activeChildren.length / 8);
@@ -30,24 +33,35 @@ function adjustQueryWidth(module, activeChildren) {
   addNavArrows(module, screens);
 }
 
+let prevWidth = window.innerWidth;
+let prevHeight = window.innerHeight;
+
 window.addEventListener('resize', () => {
-  const teammemberModules = document.querySelectorAll('.formo2022-team-members')
-  teammemberModules.forEach(module => {
-    const activeChildren = module.querySelectorAll('.formo2022-teammember:not([data-department-hidden="true"])');
-    adjustQueryWidth(module, activeChildren);
-  })
+  const widthChanged = window.innerWidth !== prevWidth;
+  const heightChanged = window.innerHeight !== prevHeight;
+  if (widthChanged) {
+    const teammemberModules = document.querySelectorAll('.formo2022-team-members')
+    teammemberModules.forEach(module => {
+      const activeChildren = module.querySelectorAll('.formo2022-teammember:not([data-department-hidden="true"])');
+      adjustQueryWidth(module, activeChildren);
+    })
+  }
+  prevWidth = window.innerWidth;
+  prevHeight = window.innerHeight;
 })
 
 function getMemberData(eventTarget) {
   const isMobile = window.innerWidth < 782;
   const members = eventTarget.closest('.formo2022-team-members');
   const visibleMembers = members.querySelectorAll('.formo2022-teammember:not([data-department-hidden="true"])') || null;
-  // const screens = isMobile ? Math.ceil(visibleMembers.length / 4) : Math.ceil(visibleMembers.length / 8);
   const query = members.querySelector('.formo2022-team-query');
+  const gapValue = window.getComputedStyle(query).getPropertyValue("gap");
+  // get the substring of gapValue before the first occurrence of 'px'
+  const gapWidth = gapValue ? Number(gapValue.substring(0, gapValue.indexOf('px'))) : 13;
   const data = {
     query: query,
     visibleMembers: visibleMembers,
-    gapWidth: Number(window.getComputedStyle(query).getPropertyValue("gap").replace('px', '')) || 0,
+    gapWidth: gapWidth,
     width: visibleMembers ? visibleMembers[0].getBoundingClientRect().width : 0,
     outerSpace: Number(window.getComputedStyle(members).getPropertyValue("padding-left").replace('px', '')) || 0,
     position: visibleMembers ? visibleMembers[0].getBoundingClientRect() : 0
@@ -74,10 +88,12 @@ function addNavArrows(module, screens) {
   module.appendChild(prev);
   prev.style.opacity = 0.4;
   module.appendChild(next);
+
   next.addEventListener('click', (e) => {
     if (isMoving) return;
     isMoving = true;
     const members = getMemberData(e.target);
+    console.log(members);
     const isAtEnd = Math.floor(members.position.x) <= window.innerWidth - 2 * members.outerSpace - members.query.getBoundingClientRect().width + members.width;
     if ( isAtEnd ){ 
       isMoving = false;
@@ -95,6 +111,7 @@ function addNavArrows(module, screens) {
     }
     setTimeout(() => { isMoving = false }, animationDuration);
   })
+
   prev.addEventListener('click', (e) => {
     if (isMoving) return;
     isMoving = true;
