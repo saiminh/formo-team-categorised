@@ -156,6 +156,7 @@
 
   &:hover .formo2022-teammember-content {
     opacity: 1;
+    background-image: linear-gradient(rgba(0,0,0,0) 0%, rgba(0, 0, 0, .5) 60%);
     
     & .formo2022-teammember-fullname {
       transform: translateY(0) scale(1);
