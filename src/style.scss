@@ -138,7 +138,7 @@
   @media screen and (max-width: 782px) {
     & .formo2022-teammember-content {
       background-color: transparent;
-      background-image: linear-gradient(rgba(0,0,0,0) 0%, rgba(0, 0, 0, .2) 60%);
+      background-image: linear-gradient(rgba(0,0,0,0) 0%, rgba(0, 0, 0, .5) 60%);
       opacity: 1;
       transform: translate(0) scale(1);
 
@@ -156,7 +156,6 @@
 
   &:hover .formo2022-teammember-content {
     opacity: 1;
-    background-image: linear-gradient(rgba(0,0,0,0) 0%, rgba(0, 0, 0, .5) 60%);
     
     & .formo2022-teammember-fullname {
       transform: translateY(0) scale(1);
