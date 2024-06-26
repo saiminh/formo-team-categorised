@@ -22,14 +22,12 @@ function adjustQueryWidth(module, activeChildren) {
   const query = module.querySelector('.formo2022-team-query');
   const oneWidth = activeChildren[0].getBoundingClientRect().width;
   const gapValue = window.getComputedStyle(query).getPropertyValue("gap");
-  // get the substring of gapValue before the first occurrence of 'px'
   const gapWidth = gapValue ? Number(gapValue.substring(0, gapValue.indexOf('px'))) : 13;
-  // const gapWidth = Number(window.getComputedStyle(query).getPropertyValue("gap").replace('px', '')) || 0;
   let childrenPerRow = Math.ceil(activeChildren.length / 2);
   if (childrenPerRow === 1) childrenPerRow = 2;
   let screens = isMobile ? (activeChildren.length / 4) : (activeChildren.length / 8);
   if (screens < 1) screens = 1;
-  query.style.width = `calc(${childrenPerRow * oneWidth}px + ${(childrenPerRow - 1) * gapWidth}px)`;
+  query.style.width = `${Math.ceil(childrenPerRow * oneWidth + childrenPerRow * gapWidth)}px`;
   addNavArrows(module, screens);
 }
 
