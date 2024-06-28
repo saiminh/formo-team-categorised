@@ -51,6 +51,7 @@ function render_query_teammembers( $block_attributes, $content) {
 
   $result = '<div class="formo2022-team-members">';
   $result = $result.'<div class="formo2022-team-departments">'.$termsAsString.'</div>';
+  $result = $result.'<div class="formo2022-team-query-outer">';
   $result = $result.'<div class="formo2022-team-query">';
   $args = array(  
     'post_type' => 'formo2022_teammember',
@@ -64,7 +65,7 @@ function render_query_teammembers( $block_attributes, $content) {
       
   if ( !$loop->have_posts() ) {
 
-      $result = $result.'<p class="no-events">There are no upcoming events at the moment.</p>';
+      $result = $result.'<p class="no-teammembers">There are no Teammembers at the moment.</p>';
 
   } else {
 
@@ -80,7 +81,6 @@ function render_query_teammembers( $block_attributes, $content) {
       } else {
         $departmentString = 'no-department-assigned';
       }
-      
       
       $fullname = get_post_meta( get_the_ID(), '_teammember_fullname_meta_key', true );
       if (empty($fullname)) {
@@ -117,6 +117,7 @@ function render_query_teammembers( $block_attributes, $content) {
     wp_reset_postdata(); 
   }
       
+  $result = $result.'</div>';
   $result = $result.'</div>';
   $result = $result.'</div>';
   return $result;
