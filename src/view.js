@@ -31,22 +31,19 @@ function adjustQueryWidth(module, activeChildren) {
   addNavArrows(module, screens);
 }
 
-// let prevWidth = window.innerWidth;
-// let prevHeight = window.innerHeight;
+let prevWidth = window.innerWidth;
+let prevHeight = window.innerHeight;
 
-// window.addEventListener('resize', () => {
-//   const widthChanged = window.innerWidth !== prevWidth;
-//   const heightChanged = window.innerHeight !== prevHeight;
-//   if (widthChanged) {
-//     const teammemberModules = document.querySelectorAll('.formo2022-team-members')
-//     teammemberModules.forEach(module => {
-//       const activeChildren = module.querySelectorAll('.formo2022-teammember:not([data-department-hidden="true"])');
-//       adjustQueryWidth(module, activeChildren);
-//     })
-//   }
-//   prevWidth = window.innerWidth;
-//   prevHeight = window.innerHeight;
-// })
+window.addEventListener('resize', () => {
+  const widthChanged = window.innerWidth !== prevWidth;
+  const heightChanged = window.innerHeight !== prevHeight;
+  if (widthChanged) {
+    const members = getMemberData(document.querySelector('.formo2022-team-next'));
+    members.query.style.transform = `translateX(0px)`;
+  }
+  prevWidth = window.innerWidth;
+  prevHeight = window.innerHeight;
+})
 
 function getMemberData(eventTarget, screens) {
   const container = document.querySelector('.formo2022-team-query-outer');
